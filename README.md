@@ -6,7 +6,7 @@ CLI utility to take care of orphaned S3 buckets left by Cloudformation
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/s3-janitor.svg)](https://npmjs.org/package/s3-janitor)
 [![Downloads/week](https://img.shields.io/npm/dw/s3-janitor.svg)](https://npmjs.org/package/s3-janitor)
-[![License](https://img.shields.io/npm/l/s3-janitor.svg)](https://github.com/jensgerdes/s3-janitor/blob/master/package.json)
+[![License](https://img.shields.io/npm/l/s3-janitor.svg)](https://github.com/jensgerdes/s3-janitor/blob/main/package.json)
 
 <!-- toc -->
 * [Usage](#usage)
@@ -28,28 +28,27 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`janitor hello [FILE]`](#janitor-hello-file)
+* [`janitor list-orphans`](#janitor-list-orphans)
 * [`janitor help [COMMAND]`](#janitor-help-command)
 
-## `janitor hello [FILE]`
+## `janitor list-orphans`
 
-describe the command here
+Lists all S3 Buckets not referenced in a CF / CDK Stack.
 
 ```
 USAGE
-  $ janitor hello [FILE]
+  $ janitor list-orphans
 
 OPTIONS
-  -f, --force
   -h, --help       show CLI help
-  -n, --name=name  name to print
 
 EXAMPLE
-  $ janitor hello
-  hello world from ./src/hello.ts!
+  $ janitor listOrphans
+  - bucketA
+  - bucketB
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/jensgerdes/s3-janitor/blob/v0.1.0/src/commands/hello.ts)_
+_See code: [src/commands/list-orphans.ts](https://github.com/jensgerdes/s3-janitor/blob/main/src/commands/list-orphans.ts)_
 
 ## `janitor help [COMMAND]`
 
@@ -66,5 +65,5 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
-<!-- commandsstop -->
+## License
+s3-janitor is licensed under the MIT License.
