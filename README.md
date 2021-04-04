@@ -6,7 +6,7 @@ CLI utility to take care of orphaned S3 buckets left by Cloudformation
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/s3-janitor.svg)](https://npmjs.org/package/s3-janitor)
 [![Downloads/week](https://img.shields.io/npm/dw/s3-janitor.svg)](https://npmjs.org/package/s3-janitor)
-[![License](https://img.shields.io/npm/l/s3-janitor.svg)](https://github.com/jensgerdes/s3-janitor/blob/main/package.json)
+[![License](https://img.shields.io/github/license/jensgerdes/s3-janitor)](https://github.com/jensgerdes/s3-janitor/blob/main/package.json)
 
 <!-- toc -->
 * [Usage](#usage)

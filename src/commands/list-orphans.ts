@@ -1,4 +1,5 @@
 import {Command, flags} from '@oclif/command'
+import StackRepository from '../repositories/stack-repository'
 
 export default class ListOrphans extends Command {
   static description = 'lists all S3 Buckets not referenced in a CF / CDK Stack'
@@ -16,6 +17,7 @@ bucketB
 
   async run() {
     this.parse(ListOrphans)
-    this.log('hello from ./src/commands/list-orphans.ts')
+    const result = await new StackRepository().listReferencedBuckets()
+    this.log(JSON.stringify(result))
   }
 }
