@@ -16,6 +16,15 @@ export default class RemoveOrphans extends Command {
 
   async run() {
     this.parse(RemoveOrphans)
-    await new BucketRepository().deleteBucket('cf-templates-ooi4s4rza1xz-eu-central-1')
+    const br = new BucketRepository()
+    const allBuckets = await br.listAllBuckets()
+    const referencedBuckets = await new StackRepository().listReferencedBuckets()
+    const existingReferencedBuckets = allBuckets.filter(_ => referencedBuckets.includes(_))
+    const orphans = allBuckets.filter(_ => !existingReferencedBuckets.includes(_))
+
+    for (const orphan of orphans) {
+      // eslint-disable-next-line no-await-in-loop
+      await br.deleteBucket(orphan)
+    }
   }
 }
