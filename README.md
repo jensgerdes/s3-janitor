@@ -19,7 +19,7 @@ $ npm install -g s3-janitor
 $ janitor COMMAND
 running command...
 $ janitor (-v|--version|version)
-s3-janitor/0.1.0 darwin-x64 node-v14.16.0
+s3-janitor/0.2.0 darwin-x64 node-v14.16.0
 $ janitor --help [COMMAND]
 USAGE
   $ janitor COMMAND
@@ -39,17 +39,9 @@ Lists all S3 Buckets not referenced in a CF / CDK Stack
 ```
 USAGE
   $ janitor list-orphans
-
-OPTIONS
-  -h, --help  show CLI help
-
-EXAMPLE
-  $ janitor list-orphans
-  bucketA
-  bucketB
 ```
 
-_See code: [src/commands/list-orphans.ts](https://github.com/jensgerdes/s3-janitor/blob/v0.1.0/src/commands/list-orphans.ts)_
+_See code: [src/commands/list-orphans.ts](https://github.com/jensgerdes/s3-janitor/blob/main/src/commands/list-orphans.ts)_
 
 ## `janitor remove-orphans`
 
@@ -58,15 +50,9 @@ Removes all orphaned S3 Buckets recursively
 ```
 USAGE
   $ janitor remove-orphans
-
-OPTIONS
-  -h, --help  show CLI help
-
-EXAMPLE
-  $ janitor remove-orphans
 ```
 
-_See code: [src/commands/remove-orphans.ts](https://github.com/jensgerdes/s3-janitor/blob/v0.1.0/src/commands/remove-orphans.ts)_
+_See code: [src/commands/remove-orphans.ts](https://github.com/jensgerdes/s3-janitor/blob/main/src/commands/remove-orphans.ts)_
 
 ## `janitor help [COMMAND]`
 

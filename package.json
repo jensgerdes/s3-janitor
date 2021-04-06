@@ -1,7 +1,7 @@
 {
   "name": "s3-janitor",
   "description": "CLI utility to take care of orphaned S3 buckets left by Cloudformation",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Jens Gerdes",
   "bin": {
     "janitor": "./bin/run"
@@ -12,6 +12,7 @@
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^3",
     "aws-sdk": "^2.879.0",
+    "ora": "^5.4.0",
     "tslib": "^1"
   },
   "devDependencies": {

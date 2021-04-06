@@ -1,5 +1,6 @@
 import {StackResourceSummaries, StackResourceSummary, StackSummaries} from 'aws-sdk/clients/cloudformation'
 import {CloudFormation} from 'aws-sdk'
+import * as ora from 'ora'
 
 export default class StackRepository {
   readonly #cf: CloudFormation
@@ -47,10 +48,12 @@ export default class StackRepository {
     return iterator()
   }
 
-  async listReferencedBuckets(): Promise<string[]> {
+  async listReferencedBuckets(spinner: ora.Ora): Promise<string[]> {
+    spinner.text = 'Loading Cloudformation stacks...'
     const stacks = await this.listStacks()
     const buckets: string[] = []
     for (const stack of stacks) {
+      spinner.text = `Analyzing stack "${stack.StackName}"...`
       // AWS is throttling it's API. Therefore, we need to perform calls one by one - possibly retrying failed ones.
       // eslint-disable-next-line no-await-in-loop
       const resources = await this.listStackResources(stack.StackName)

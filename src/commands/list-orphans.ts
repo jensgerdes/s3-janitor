@@ -1,29 +1,21 @@
 /* eslint-disable no-console */
-import {Command, flags} from '@oclif/command'
+import {Command} from '@oclif/command'
 import Service from '../service'
+import * as Config from '@oclif/config'
 
 export default class ListOrphans extends Command {
-  static description = 'lists all S3 Buckets not referenced in a CF / CDK Stack'
+  static description = 'Lists all S3 Buckets not referenced in a CF / CDK Stack'
 
-  static examples = [
-    `$ janitor list-orphans
-bucketA
-bucketB
-`,
-  ]
+  readonly #service: Service
 
-  static flags = {
-    help: flags.help({char: 'h'}),
+  constructor(argv: string[], config: Config.IConfig) {
+    super(argv, config)
+    this.#service = new Service()
   }
 
   async run() {
     this.parse(ListOrphans)
-    this.log('---------------------------------------------')
-    this.log(' This operation takes very long. Be patient!')
-    this.log('---------------------------------------------')
-    this.log()
-
-    const result = await new Service().listOrphans()
+    const result = await this.#service.listOrphans()
 
     this.log(`TOTAL Buckets: ${result.stats.totalBuckets}`)
     this.log(`Referenced Buckets: ${result.stats.referencedBuckets}`)
