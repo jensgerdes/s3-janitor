@@ -1,23 +1,16 @@
-// Let AWS-SDK read configuration from local settings
-process.env.AWS_SDK_LOAD_CONFIG = 'true'
-
-import {StackResourceSummaries, StackSummaries} from 'aws-sdk/clients/cloudformation'
+import {StackResourceSummaries, StackResourceSummary, StackSummaries} from 'aws-sdk/clients/cloudformation'
 import {CloudFormation} from 'aws-sdk'
-import {isBucket} from '../utils/resource-utils'
 
 export default class StackRepository {
-  private readonly cf: CloudFormation
+  readonly #cf: CloudFormation
 
-  constructor() {
-    this.cf = new CloudFormation({
-      maxRetries: 50,
-      retryDelayOptions: {base: 300},
-    })
+  constructor(cf: CloudFormation) {
+    this.#cf = cf
   }
 
   private async listStacks(): Promise<StackSummaries> {
     const iterator = async (token?: string): Promise<StackSummaries> => {
-      const stacks = await this.cf.listStacks({
+      const stacks = await this.#cf.listStacks({
         NextToken: token,
       }).promise()
 
@@ -28,7 +21,6 @@ export default class StackRepository {
           ...nextPage,
         ]
       }
-
       return stacks.StackSummaries ? stacks.StackSummaries : []
     }
 
@@ -38,7 +30,7 @@ export default class StackRepository {
 
   private async listStackResources(stackName: string): Promise<StackResourceSummaries> {
     const iterator = async (NextToken?: string): Promise<StackResourceSummaries> => {
-      const r = await this.cf.listStackResources({
+      const r = await this.#cf.listStackResources({
         StackName: stackName,
         NextToken,
       }).promise()
@@ -63,11 +55,17 @@ export default class StackRepository {
       // eslint-disable-next-line no-await-in-loop
       const resources = await this.listStackResources(stack.StackName)
       resources.forEach(resource => {
-        if (isBucket(resource))
+        if (this.isBucket(resource))
           buckets.push(resource.PhysicalResourceId!)
       })
     }
 
     return buckets
+  }
+
+  private isBucket = (resource: StackResourceSummary) => {
+    return resource &&
+      resource.PhysicalResourceId &&
+      resource.ResourceType === 'AWS::S3::Bucket'
   }
 }
