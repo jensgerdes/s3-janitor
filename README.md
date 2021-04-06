@@ -29,26 +29,44 @@ USAGE
 # Commands
 <!-- commands -->
 * [`janitor list-orphans`](#janitor-list-orphans)
+* [`janitor remove-orphans`](#janitor-remove-orphans)
 * [`janitor help [COMMAND]`](#janitor-help-command)
 
 ## `janitor list-orphans`
 
-Lists all S3 Buckets not referenced in a CF / CDK Stack.
+Lists all S3 Buckets not referenced in a CF / CDK Stack
 
 ```
 USAGE
   $ janitor list-orphans
 
 OPTIONS
-  -h, --help       show CLI help
+  -h, --help  show CLI help
 
 EXAMPLE
-  $ janitor listOrphans
-  - bucketA
-  - bucketB
+  $ janitor list-orphans
+  bucketA
+  bucketB
 ```
 
-_See code: [src/commands/list-orphans.ts](https://github.com/jensgerdes/s3-janitor/blob/main/src/commands/list-orphans.ts)_
+_See code: [src/commands/list-orphans.ts](https://github.com/jensgerdes/s3-janitor/blob/v0.1.0/src/commands/list-orphans.ts)_
+
+## `janitor remove-orphans`
+
+Removes all orphaned S3 Buckets recursively
+
+```
+USAGE
+  $ janitor remove-orphans
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ janitor remove-orphans
+```
+
+_See code: [src/commands/remove-orphans.ts](https://github.com/jensgerdes/s3-janitor/blob/v0.1.0/src/commands/remove-orphans.ts)_
 
 ## `janitor help [COMMAND]`
 
@@ -64,6 +82,10 @@ ARGUMENTS
 OPTIONS
   --all  see all commands in CLI
 ```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
+
+<!-- commandsstop -->
 
 ## License
 s3-janitor is licensed under the MIT License.
