@@ -29,7 +29,7 @@ export default class BucketRepository {
         return
 
       const keys: ObjectIdentifier[] = []
-      objects.Contents?.forEach(_ => keys.push({Key: _.Key!}))
+      objects.Contents.forEach(_ => keys.push({Key: _.Key!}))
 
       await this.#s3.deleteObjects({
         Bucket: name,
